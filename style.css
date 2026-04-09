@@ -208,56 +208,72 @@ p {
     color: var(--accent);
 }
 
-/* Floating Language FAB — Mobile Only */
+/* Floating Language FAB — Mobile Only
+   Uses CSS env() safe-area-insets so it clears the iOS home bar
+   and stays in a comfortable spot on all phone sizes.           */
 .lang-fab {
-    display: none; /* Activated in @media (max-width: 768px) */
+    display: none; /* Shown only inside @media (max-width: 768px) */
     position: fixed;
-    bottom: 1.75rem;
-    right: 1.25rem;
+
+    /*
+     * bottom = at least 1.5rem OR the iOS safe-area-inset-bottom + 1rem
+     * This makes it sit above the home indicator on notched iPhones
+     * and still look centred on notch-less Androids.
+     */
+    bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));
+
+    /*
+     * right = viewport-relative so it never kisses the edge.
+     * 4vw gives ~15px on 375px, ~20px on 480px — always comfortable.
+     */
+    right: max(1rem, 4vw);
+
     z-index: 998;
 
-    /* Pill shape — gives room for two lines of text */
-    width: 64px;
-    height: 64px;
+    /*
+     * clamp() scales size: 56px on tiny screens → 64px normal → never > 68px
+     */
+    width:  clamp(56px, 15vw, 68px);
+    height: clamp(56px, 15vw, 68px);
     border-radius: 50%;
 
-    background: rgba(8, 8, 8, 0.94);
-    border: 1px solid rgba(212,175,55,0.5);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 0 0 rgba(212,175,55,0.2);
+    background: rgba(8, 8, 8, 0.95);
+    border: 1px solid rgba(212,175,55,0.50);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 0 rgba(212,175,55,0.2);
     cursor: pointer;
 
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
-    /* Proper spacing between word and label */
-    gap: 5px;
-    padding: 10px 0;
+    /* Gap scales with the button size */
+    gap: clamp(3px, 1.2vw, 6px);
+    padding: 0;
 
     transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-                box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow  0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
                 border-color 0.25s ease;
     animation: fabPulse 3s ease-in-out infinite;
 }
 
 .lang-fab:hover,
 .lang-fab:focus {
-    transform: scale(1.07) translateY(-3px);
+    transform: scale(1.08) translateY(-3px);
     border-color: var(--accent);
-    box-shadow: 0 14px 36px rgba(0,0,0,0.65), 0 0 0 6px rgba(212,175,55,0.1);
+    box-shadow: 0 14px 36px rgba(0,0,0,0.7), 0 0 0 7px rgba(212,175,55,0.1);
     outline: none;
 }
 
 .lang-fab:active {
-    transform: scale(0.94);
+    transform: scale(0.93);
 }
 
-/* Active language — bold, white, larger */
+/* Active language word — bold, white */
 .lang-fab-word {
     font-family: 'Inter', sans-serif;
-    font-size: 0.85rem;
+    font-size: clamp(0.7rem, 2.2vw, 0.85rem);
     font-weight: 700;
     color: var(--white);
     letter-spacing: 0.08em;
@@ -266,33 +282,33 @@ p {
     display: block;
 }
 
-/* Thin separator line between the two labels */
+/* Thin gold divider line */
 .lang-fab-word::after {
     content: '';
     display: block;
-    width: 20px;
+    width: 18px;
     height: 1px;
-    background: rgba(212,175,55,0.35);
-    margin: 4px auto 0;
+    background: rgba(212,175,55,0.4);
+    margin: clamp(3px, 1vw, 5px) auto 0;
 }
 
-/* Target language — small, gold, sits below the divider */
+/* Target language label — gold, smaller */
 .lang-fab-label {
     font-family: 'Inter', sans-serif;
-    font-size: 0.65rem;
+    font-size: clamp(0.55rem, 1.7vw, 0.65rem);
     font-weight: 500;
     color: var(--accent);
-    letter-spacing: 0.06em;
+    letter-spacing: 0.07em;
     text-transform: uppercase;
     line-height: 1;
     opacity: 0.9;
     display: block;
 }
 
-/* Subtle glow pulse ring */
+/* Glow pulse ring */
 @keyframes fabPulse {
-    0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 0 0 rgba(212,175,55,0.18); }
-    50%       { box-shadow: 0 8px 28px rgba(0,0,0,0.6), 0 0 0 9px rgba(212,175,55,0); }
+    0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 0   rgba(212,175,55,0.18); }
+    50%       { box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 10px rgba(212,175,55,0);   }
 }
 
 .btn-block {
