@@ -308,7 +308,7 @@ p {
 .mobile-menu-content {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding: 2.5rem;
     height: 100%;
 }
 
@@ -316,7 +316,7 @@ p {
     font-family: 'Playfair Display', serif;
     font-size: 2.5rem;
     color: var(--text-muted);
-    padding: 1rem 0;
+    padding: 1.25rem 0;
     border-bottom: 1px solid var(--gray-border);
 }
 
@@ -327,7 +327,7 @@ p {
 
 .mobile-footer {
     margin-top: auto;
-    padding-bottom: 2rem;
+    padding-bottom: 2.5rem;
 }
 
 /* Hero Section */
@@ -834,79 +834,399 @@ p {
     perspective: 800px;
 }
 
-/* Responsive */
+/* ===================================
+   RESPONSIVE — TABLET (≤ 1024px)
+   =================================== */
 @media (max-width: 1024px) {
     .container {
-        padding: 0 1.25rem;
+        padding: 0 1.5rem;
+    }
+
+    /* Hero: stack text and carousel cleanly */
+    .hero {
+        min-height: 70vh;
     }
 
     .hero-container {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
         gap: 3rem;
+        align-items: center;
     }
-    
+
+    .hero-right,
+    .hero-left {
+        width: 100%;
+    }
+
+    .hero-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
     .text-center-mobile {
         text-align: center;
         display: flex;
         flex-direction: column;
         align-items: center;
     }
-    
+
+    .hero-carousel {
+        width: 100%;
+        max-width: 100%;
+        min-height: 320px;
+    }
+
+    /* Hero subtitle: no fixed max-width on tablet */
+    .hero-subtitle {
+        max-width: 100%;
+    }
+
+    /* Booking: single column */
     .booking-wrapper {
         grid-template-columns: 1fr;
         gap: 3rem;
     }
 
+    /* Footer: single column */
     .footer-top {
         grid-template-columns: 1fr;
-    }
-    
-    .luxury-fleet-list {
-        gap: 4rem;
+        gap: 3rem;
     }
 
-    .luxury-fleet-item, .luxury-fleet-item.reverse {
+    /* Fleet: stack vertically */
+    .luxury-fleet-list {
+        gap: 3.5rem;
+    }
+
+    .luxury-fleet-item,
+    .luxury-fleet-item.reverse {
         flex-direction: column;
         gap: 2rem;
         text-align: center;
+        padding-bottom: 2.5rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+        align-items: center;
+    }
+
+    .luxury-fleet-item:last-child {
+        border-bottom: none;
+        padding-bottom: 0;
+    }
+
+    /* Center fleet buttons when text-align: center */
+    .luxury-fleet-content .btn {
+        margin: 0 auto;
+    }
+
+    .luxury-fleet-image {
+        width: 100%;
+        max-width: 520px;
+        margin: 0 auto;
+        padding: 1.5rem 0;
+        border-radius: var(--radius-lg);
+    }
+
+    /* About title-divider: center on tablet too */
+    .about-text-wrapper .title-divider {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
+/* ===================================
+   RESPONSIVE — MOBILE (≤ 768px)
+   =================================== */
 @media (max-width: 768px) {
+    /* Sections */
+    .section-padding { padding: 6rem 0; }
+    .section-header { margin-bottom: 2.5rem; }
+
+    /* Container */
+    .container { padding: 0 2rem; }
+
+    /* Glow orbs */
+    .orb-1 {
+        width: 400px; height: 400px;
+    }
+    .orb-2 {
+        width: 500px; height: 500px;
+    }
+
+    /* Typography */
+    h1 { font-size: clamp(2.5rem, 10vw, 3rem); }
+    h2 { font-size: clamp(1.8rem, 7vw, 2.2rem); }
+    h3 { font-size: 1.35rem; }
+
+    /* Navbar */
+    .nav-links,
+    .hide-mobile { display: none; }
+
+    .mobile-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        font-size: 2rem;
+        padding: 0;
+    }
+
+    /* Hero */
+    .hero {
+        padding-top: 7rem;
+        padding-bottom: 4rem;
+        min-height: auto;
+    }
+
+    .hero-container {
+        gap: 2.5rem;
+        flex-direction: column;
+    }
+
+    .hero-right {
+        width: 100%;
+    }
+
+    .hero-carousel {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero-subtitle {
+        font-size: 1rem;
+        line-height: 1.75;
+        margin-bottom: 2rem;
+        max-width: 100%;
+        padding: 0 1rem;
+    }
+
+    .hero-cta {
+        flex-direction: column;
+        gap: 0.875rem;
+        width: 100%;
+        max-width: 100%;
+        margin: 0 auto;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+    }
+
+    .hero-cta .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .badge {
+        margin-bottom: 1.25rem;
+    }
+
+    /* Hero Carousel */
+    .hero-carousel {
+        border-radius: var(--radius-md);
+        aspect-ratio: 16/9;
+    }
+
+    /* About */
+    .about-text-wrapper {
+        padding: 0 1rem;
+        text-align: left;
+    }
+
+    .about-desc { font-size: 1.05rem; line-height: 1.75; }
+
+    /* Services */
+    .services-grid {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .service-card {
+        padding: 2.5rem 2rem;
+    }
+
+    /* Fleet */
+    .luxury-fleet-list {
+        gap: 3rem;
+        margin-top: 1.5rem;
+    }
+
+    .luxury-fleet-item,
+    .luxury-fleet-item.reverse {
+        padding-bottom: 4rem;
+        gap: 2rem;
+        text-align: left;
+    }
+
+    .luxury-fleet-image {
+        max-width: 100%;
+        padding: 1rem 0;
+        overflow: hidden;
+    }
+
+    .luxury-fleet-content {
+        width: 100%;
+        padding: 0 1rem;
+    }
+
+    .fleet-desc { font-size: 1rem; margin-bottom: 2rem; }
+
+    /* Booking */
+    .booking-wrapper { gap: 3rem; }
+
+    .booking-info {
+        padding: 0 1rem;
+        text-align: center;
+    }
+
+    .booking-info h2 {
+        margin-bottom: 0.75rem;
+    }
+
+    .contact-highlights {
+        gap: 1rem;
+        align-items: center;
+    }
+
+    .highlight-item {
+        width: 100%;
+        max-width: 340px;
+        margin: 0 auto;
+        padding: 1rem 1.25rem;
+    }
+
+    .glass-panel {
+        padding: 1.5rem 1.25rem;
+        border-radius: var(--radius-md);
+    }
+
+    .modern-form .form-row {
+        grid-template-columns: 1fr;
+        gap: 0;
+    }
+
+    .modern-form .form-group {
+        margin-bottom: 1.25rem;
+    }
+
+    .submit-btn {
+        margin-top: 2rem;
+    }
+
+    /* Footer */
+    .footer {
+        padding: 4rem 0 2rem;
+    }
+
+    .footer-top {
+        gap: 3rem;
+        margin-bottom: 3rem;
+        text-align: left;
+    }
+
+    .footer-brand p {
+        margin: 0;
+        max-width: 280px;
+    }
+
+    /* Keep 2 columns for footer links grid on mobile */
+    .footer-links-grid {
+        grid-template-columns: 1fr 1fr;
+        gap: 2rem 1.5rem;
+    }
+
+    .footer-col:last-child {
+        grid-column: 1 / -1;
+        text-align: left;
+    }
+
+    .contact-ul li {
+        justify-content: flex-start;
+        text-align: left;
+    }
+
+    .footer-bottom {
+        padding-top: 1.5rem;
+        font-size: 0.7rem;
+    }
+
+    /* Mobile menu */
+    .mobile-link { font-size: 1.9rem; }
+
+    /* Glow orbs — shrink for perf */
+    .orb-1 { width: 280px; height: 280px; }
+    .orb-2 { width: 380px; height: 380px; }
+}
+
+/* ===================================
+   RESPONSIVE — SMALL PHONES (≤ 480px)
+   =================================== */
+@media (max-width: 480px) {
+    .container { padding: 0 1.5rem; }
+
     .section-padding { padding: 4rem 0; }
-    
-    .hero { padding-top: 7rem; padding-bottom: 3rem; min-height: auto; }
-    .hero-subtitle { font-size: 1.1rem; margin-bottom: 2rem; }
-    .hero-cta { flex-direction: column; gap: 1rem; width: 100%; max-width: 320px; margin: 0 auto; }
-    .hero-cta .btn { width: 100%; }
-    
-    .nav-links, .hide-mobile { display: none; }
-    .mobile-toggle { display: block; }
-    
-    .header h1 { font-size: 2.5rem; }
-    
-    .services-grid { grid-template-columns: 1fr; gap: 1.5rem; }
+    .section-header { margin-bottom: 2rem; }
+
+    /* Glow orbs */
+    .orb-1 {
+        width: 300px; height: 300px;
+    }
+    .orb-2 {
+        width: 400px; height: 400px;
+    }
+
+    h1 { font-size: clamp(1.9rem, 8vw, 2.4rem); }
+    h2 { font-size: clamp(1.6rem, 7vw, 2rem); }
+    h3 { font-size: 1.2rem; }
+
+    /* Hero */
+    .hero { padding-top: 6.5rem; padding-bottom: 3rem; min-height: 65vh; }
+
+    .hero-right {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hero-carousel {
+        min-height: 280px;
+    }
+
+    .hero-subtitle { font-size: 0.95rem; }
+
+    .badge {
+        font-size: 0.7rem;
+        padding: 0.35rem 0.8rem;
+    }
+
+    /* Services */
     .service-card { padding: 2rem 1.5rem; }
-    
-    .luxury-fleet-list { gap: 3rem; }
-    
-    .booking-wrapper { gap: 2rem; }
-    .glass-panel { padding: 1.5rem; }
-    .modern-form .form-row { grid-template-columns: 1fr; gap: 0; }
-    .modern-form .form-group { margin-bottom: 1.2rem; }
-    
-    .footer-top { gap: 3rem; margin-bottom: 3rem; }
-    .footer-links-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .footer { padding: 4rem 0 2rem; }
-    
-    h1 { font-size: 2.5rem; }
-    h2 { font-size: 2rem; }
-    h3 { font-size: 1.4rem; }
-    
-    .mobile-link { font-size: 2rem; }
-    .about-desc { font-size: 1.1rem; }
-    .section-header { margin-bottom: 3rem; }
-    
-    .orb-1 { width: 300px; height: 300px; }
-    .orb-2 { width: 400px; height: 400px; }
+    .service-icon { font-size: 2rem; margin-bottom: 1.25rem; }
+
+    /* Booking */
+    .glass-panel { padding: 1.25rem 1rem; }
+
+    .highlight-item {
+        padding: 0.875rem 1rem;
+        gap: 1rem;
+    }
+
+    .highlight-item i { font-size: 1.6rem; }
+
+    /* Footer: single column on extra small */
+    .footer-links-grid {
+        grid-template-columns: 1fr;
+        gap: 1.75rem;
+    }
+
+    .footer-col:last-child {
+        grid-column: auto;
+    }
+
+    .footer { padding: 3.5rem 0 2rem; }
+
+    /* Mobile menu */
+    .mobile-link { font-size: 1.6rem; padding: 0.875rem 0; }
 }

@@ -36,12 +36,18 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.scrollY > 50) navbar.classList.add('scrolled');
         else navbar.classList.remove('scrolled');
         
-        // Simple subtle vertical parallax for images
-        parallaxImgs.forEach(img => {
-            const speed = 0.05;
-            const yPos = -(window.scrollY * speed);
-            img.style.transform = `translateY(${yPos}px) scale(1.05)`;
-        });
+        // Simple subtle vertical parallax for images (desktop only)
+        if (window.innerWidth > 768) {
+            parallaxImgs.forEach(img => {
+                const speed = 0.05;
+                const yPos = -(window.scrollY * speed);
+                img.style.transform = `translateY(${yPos}px) scale(1.05)`;
+            });
+        } else {
+            parallaxImgs.forEach(img => {
+                img.style.transform = 'none';
+            });
+        }
     });
 
     // Scroll Reveal Intersection Observer
@@ -108,6 +114,29 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Mobile hero CTA repositioning: keep buttons below the image on narrow screens
+    const heroLeft = document.querySelector('.hero-left');
+    const heroRight = document.querySelector('.hero-right');
+    const heroCta = document.querySelector('.hero-cta');
+
+    function repositionHeroCta() {
+        if (!heroLeft || !heroRight || !heroCta) return;
+        if (window.innerWidth <= 1024) {
+            if (heroRight.nextSibling !== heroCta) {
+                heroRight.parentNode.insertBefore(heroCta, heroRight.nextSibling);
+            }
+        } else {
+            if (heroLeft.contains(heroCta) === false) {
+                heroLeft.appendChild(heroCta);
+            }
+        }
+    }
+
+    repositionHeroCta();
+    window.addEventListener('resize', () => {
+        clearTimeout(window._heroCtaResizeTimeout);
+        window._heroCtaResizeTimeout = setTimeout(repositionHeroCta, 100);
+    });
 
     // 3D Tilt Effect Setup (Vanilla JS)
     const tiltElements = document.querySelectorAll('.tilt-effect, .tilt-btn');
