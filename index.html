@@ -31,7 +31,7 @@
                     <a href="#fleet" data-translate="the_fleet">The Fleet</a>
                 </div>
                 <div class="nav-actions">
-                    <button id="language-toggle" class="btn btn-outline btn-sm" data-translate-aria="toggle_language" aria-label="Toggle language">
+                    <button id="language-toggle" class="btn btn-outline btn-sm hide-mobile" data-translate-aria="toggle_language" aria-label="Toggle language">
                         <span id="lang-text">తెలుగు</span>
                     </button>
                     <a href="#book" class="btn btn-primary btn-sm hide-mobile">
@@ -303,6 +303,17 @@
             </div>
         </div>
     </footer>
+
+    <!-- Floating Language Toggle — Mobile Only -->
+    <button
+        id="lang-fab"
+        class="lang-fab"
+        aria-label="Toggle language"
+        title="Switch language"
+    >
+        <span class="lang-fab-word" id="lang-fab-word">EN</span>
+        <span class="lang-fab-label" id="lang-fab-label">తె</span>
+    </button>
 
     <script src="translations.js"></script>
     <script src="script.js"></script>

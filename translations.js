@@ -233,6 +233,19 @@ function updateLanguageButton() {
     if (langBtn) {
         langBtn.innerHTML = currentLanguage === 'en' ? 'తెలుగు' : 'English';
     }
+
+    // Sync floating FAB
+    const fabWord  = document.getElementById('lang-fab-word');
+    const fabLabel = document.getElementById('lang-fab-label');
+    if (fabWord && fabLabel) {
+        if (currentLanguage === 'en') {
+            fabWord.textContent  = 'EN';   // currently English
+            fabLabel.textContent = 'తె';   // tap to switch to Telugu
+        } else {
+            fabWord.textContent  = 'తె';   // currently Telugu
+            fabLabel.textContent = 'EN';   // tap to switch to English
+        }
+    }
 }
 
 // Initialize translation system
@@ -241,11 +254,19 @@ document.addEventListener('DOMContentLoaded', () => {
     applyTranslations();
     updateLanguageButton();
     
-    // Setup language toggle button
+    // Setup desktop language toggle
     const langToggle = document.getElementById('language-toggle');
     if (langToggle) {
         langToggle.addEventListener('click', (e) => {
             e.preventDefault();
+            setLanguage(currentLanguage === 'en' ? 'te' : 'en');
+        });
+    }
+
+    // Setup floating FAB language toggle (mobile)
+    const langFab = document.getElementById('lang-fab');
+    if (langFab) {
+        langFab.addEventListener('click', () => {
             setLanguage(currentLanguage === 'en' ? 'te' : 'en');
         });
     }

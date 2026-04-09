@@ -208,6 +208,73 @@ p {
     color: var(--accent);
 }
 
+/* Floating Language FAB — Mobile Only */
+.lang-fab {
+    display: none; /* Hidden by default; shown only on mobile via media query */
+    position: fixed;
+    bottom: 1.75rem;
+    right: 1.25rem;
+    z-index: 998;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(10, 10, 10, 0.92);
+    border: 1px solid rgba(212,175,55,0.45);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+    box-shadow: 0 8px 28px rgba(0,0,0,0.55), 0 0 0 0 rgba(212,175,55,0.25);
+    cursor: pointer;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1px;
+    padding: 0;
+    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                box-shadow 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
+                border-color 0.25s ease;
+    animation: fabPulse 3s ease-in-out infinite;
+}
+
+.lang-fab:hover,
+.lang-fab:focus {
+    transform: scale(1.08) translateY(-2px);
+    border-color: var(--accent);
+    box-shadow: 0 12px 36px rgba(0,0,0,0.6), 0 0 0 6px rgba(212,175,55,0.12);
+    outline: none;
+}
+
+.lang-fab:active {
+    transform: scale(0.95);
+}
+
+/* The bold current-language word at the top */
+.lang-fab-word {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--white);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1;
+}
+
+/* The small target-language indicator at the bottom */
+.lang-fab-label {
+    font-family: 'Inter', sans-serif;
+    font-size: 0.6rem;
+    font-weight: 400;
+    color: var(--accent);
+    letter-spacing: 0.04em;
+    line-height: 1;
+    opacity: 0.85;
+}
+
+/* Subtle pulse glow ring */
+@keyframes fabPulse {
+    0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.55), 0 0 0 0 rgba(212,175,55,0.2); }
+    50%       { box-shadow: 0 8px 28px rgba(0,0,0,0.55), 0 0 0 8px rgba(212,175,55,0); }
+}
+
 .btn-block {
     width: 100%;
 }
@@ -1025,6 +1092,11 @@ p {
         height: 3rem;
         font-size: 2rem;
         padding: 0;
+    }
+
+    /* Show floating language FAB on mobile */
+    .lang-fab {
+        display: flex;
     }
 
     /* Hero */
