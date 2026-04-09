@@ -32,6 +32,8 @@
 html {
     scroll-behavior: smooth;
     font-size: 16px;
+    overflow-x: hidden;
+    width: 100%;
 }
 
 body.luxury-dark {
@@ -43,6 +45,7 @@ body.luxury-dark {
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
     position: relative;
+    width: 100%;
 }
 
 /* Abstract 2D Glows */
