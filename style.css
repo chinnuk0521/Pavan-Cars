@@ -217,11 +217,11 @@ p {
     display: none;
     position: fixed;
 
-    /* Safe-area aware bottom — clears iOS home indicator automatically */
-    bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
+    /* Safe-area aware bottom — clears iOS home indicator, reliable calc() */
+    bottom: calc(1.5rem + env(safe-area-inset-bottom, 0px));
 
-    /* Viewport-relative right edge — never touches the screen border */
-    right: max(1rem, 4vw);
+    /* Fixed right edge spacing to prevent right-side overflow or hugging */
+    right: 1.5rem;
 
     z-index: 998;
 
