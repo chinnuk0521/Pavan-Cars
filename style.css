@@ -208,107 +208,98 @@ p {
     color: var(--accent);
 }
 
-/* Floating Language FAB — Mobile Only
-   Uses CSS env() safe-area-insets so it clears the iOS home bar
-   and stays in a comfortable spot on all phone sizes.           */
+/* ─── Floating Language FAB ─────────────────────────────────────────────────
+   Mobile-only. Globe icon top, current-language code below.
+   Position adapts to all screen sizes & iOS safe-area insets.
+   ─────────────────────────────────────────────────────────────────────────── */
 .lang-fab {
-    display: none; /* Shown only inside @media (max-width: 768px) */
+    /* Hidden on desktop; activated in @media (max-width: 768px) */
+    display: none;
     position: fixed;
 
-    /*
-     * bottom = at least 1.5rem OR the iOS safe-area-inset-bottom + 1rem
-     * This makes it sit above the home indicator on notched iPhones
-     * and still look centred on notch-less Androids.
-     */
-    bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1rem));
+    /* Safe-area aware bottom — clears iOS home indicator automatically */
+    bottom: max(1.5rem, calc(env(safe-area-inset-bottom, 0px) + 1.25rem));
 
-    /*
-     * right = viewport-relative so it never kisses the edge.
-     * 4vw gives ~15px on 375px, ~20px on 480px — always comfortable.
-     */
+    /* Viewport-relative right edge — never touches the screen border */
     right: max(1rem, 4vw);
 
     z-index: 998;
 
-    /*
-     * clamp() scales size: 56px on tiny screens → 64px normal → never > 68px
-     */
-    width:  clamp(56px, 15vw, 68px);
-    height: clamp(56px, 15vw, 68px);
+    /* Perfect circle, comfortably sized */
+    width:  60px;
+    height: 60px;
     border-radius: 50%;
 
-    background: rgba(8, 8, 8, 0.95);
-    border: 1px solid rgba(212,175,55,0.50);
-    backdrop-filter: blur(18px);
-    -webkit-backdrop-filter: blur(18px);
-    box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 0 rgba(212,175,55,0.2);
-    cursor: pointer;
+    /* Dark glass look */
+    background: rgba(8, 8, 8, 0.96);
+    border: 1.5px solid rgba(212, 175, 55, 0.55);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.55),
+        0 0 0 0 rgba(212, 175, 55, 0.18);
 
+    /* Flex column — icon on top, code below */
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 4px;         /* fixed, consistent gap */
+    padding: 0;       /* no padding — let gap + icon size do the work */
 
-    /* Gap scales with the button size */
-    gap: clamp(3px, 1.2vw, 6px);
-    padding: 0;
+    cursor: pointer;
+    transition:
+        transform     0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+        box-shadow    0.22s cubic-bezier(0.2, 0.8, 0.2, 1),
+        border-color  0.22s ease;
 
-    transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-                box-shadow  0.25s cubic-bezier(0.2, 0.8, 0.2, 1),
-                border-color 0.25s ease;
-    animation: fabPulse 3s ease-in-out infinite;
+    animation: fabPulse 3.5s ease-in-out infinite;
 }
 
 .lang-fab:hover,
-.lang-fab:focus {
-    transform: scale(1.08) translateY(-3px);
+.lang-fab:focus-visible {
+    transform: scale(1.09) translateY(-3px);
     border-color: var(--accent);
-    box-shadow: 0 14px 36px rgba(0,0,0,0.7), 0 0 0 7px rgba(212,175,55,0.1);
+    box-shadow:
+        0 12px 32px rgba(0, 0, 0, 0.65),
+        0 0 0 7px rgba(212, 175, 55, 0.1);
     outline: none;
 }
 
 .lang-fab:active {
     transform: scale(0.93);
+    transition-duration: 0.1s;
 }
 
-/* Active language word — bold, white */
+/* Globe icon — gold tinted, sits above the language code */
+.lang-fab-icon {
+    font-size: 20px;
+    color: var(--accent);
+    line-height: 1;
+    display: block;
+    /* Phosphor icons have a small natural descender — nudge up 1px */
+    margin-top: -1px;
+}
+
+/* Current language code — white, bold, tight tracking */
 .lang-fab-word {
     font-family: 'Inter', sans-serif;
-    font-size: clamp(0.7rem, 2.2vw, 0.85rem);
+    font-size: 11px;
     font-weight: 700;
     color: var(--white);
-    letter-spacing: 0.08em;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
     line-height: 1;
-    display: block;
-}
-
-/* Thin gold divider line */
-.lang-fab-word::after {
-    content: '';
-    display: block;
-    width: 18px;
-    height: 1px;
-    background: rgba(212,175,55,0.4);
-    margin: clamp(3px, 1vw, 5px) auto 0;
-}
-
-/* Target language label — gold, smaller */
-.lang-fab-label {
-    font-family: 'Inter', sans-serif;
-    font-size: clamp(0.55rem, 1.7vw, 0.65rem);
-    font-weight: 500;
-    color: var(--accent);
-    letter-spacing: 0.07em;
-    text-transform: uppercase;
-    line-height: 1;
-    opacity: 0.9;
     display: block;
 }
 
 /* Glow pulse ring */
 @keyframes fabPulse {
-    0%, 100% { box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 0   rgba(212,175,55,0.18); }
-    50%       { box-shadow: 0 8px 28px rgba(0,0,0,0.65), 0 0 0 10px rgba(212,175,55,0);   }
+    0%, 100% {
+        box-shadow: 0 6px 24px rgba(0,0,0,0.55), 0 0 0 0   rgba(212,175,55,0.18);
+    }
+    50% {
+        box-shadow: 0 6px 24px rgba(0,0,0,0.55), 0 0 0 10px rgba(212,175,55,0);
+    }
 }
 
 .btn-block {

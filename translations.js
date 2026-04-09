@@ -229,22 +229,16 @@ function applyTranslations() {
 }
 
 function updateLanguageButton() {
+    // Desktop navbar toggle
     const langBtn = document.getElementById('language-toggle');
     if (langBtn) {
         langBtn.innerHTML = currentLanguage === 'en' ? 'తెలుగు' : 'English';
     }
 
-    // Sync floating FAB
-    const fabWord  = document.getElementById('lang-fab-word');
-    const fabLabel = document.getElementById('lang-fab-label');
-    if (fabWord && fabLabel) {
-        if (currentLanguage === 'en') {
-            fabWord.textContent  = 'EN';   // currently English
-            fabLabel.textContent = 'తె';   // tap to switch to Telugu
-        } else {
-            fabWord.textContent  = 'తె';   // currently Telugu
-            fabLabel.textContent = 'EN';   // tap to switch to English
-        }
+    // Floating FAB — show the active language code
+    const fabWord = document.getElementById('lang-fab-word');
+    if (fabWord) {
+        fabWord.textContent = currentLanguage === 'en' ? 'EN' : 'తె';
     }
 }
 
